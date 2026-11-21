@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sign Up | IPMAT Prep</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="auth-page">
+
+    <div class="auth-container">
+
+        <!-- LEFT SIDE -->
+
+        <div class="auth-welcome">
+
+            <a href="index.html" class="auth-logo">
+                IPMAT<span>Prep</span>
+            </a>
+
+            <div class="welcome-content">
+
+                <div class="welcome-emoji">🎓</div>
+
+                <h1>Your IPMAT journey starts here!</h1>
+
+                <p>
+                    Create your account and start preparing
+                    for your dream IIM with interactive lessons,
+                    mock tests and daily practice.
+                </p>
+
+                <div class="welcome-points">
+                    <p>📚 Learn at your own pace</p>
+                    <p>🔥 Build your daily learning streak</p>
+                    <p>🏆 Track your preparation progress</p>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT SIDE -->
+
+        <div class="auth-form-section">
+
+            <div class="auth-form">
+
+                <a href="index.html" class="back-home">
+                    ← Back to Home
+                </a>
+
+                <h2>Create your account</h2>
+
+                <p class="auth-subtitle">
+                    Join IPMAT Prep and start learning!
+                </p>
+
+                <form id="signupForm">
+
+                    <label for="fullname">Full Name</label>
+
+                    <input
+                        type="text"
+                        id="fullname"
+                        placeholder="Enter your full name"
+                        required
+                    >
+
+                    <label for="signupEmail">Email Address</label>
+
+                    <input
+                        type="email"
+                        id="signupEmail"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                    <label for="signupPassword">Password</label>
+
+                    <div class="password-box">
+
+                        <input
+                            type="password"
+                            id="signupPassword"
+                            placeholder="Create a password"
+                            minlength="8"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            id="toggleSignupPassword">
+                            Show
+                        </button>
+
+                    </div>
+
+                    <label for="confirmPassword">Confirm Password</label>
+
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        placeholder="Re-enter your password"
+                        minlength="8"
+                        required
+                    >
+
+                    <button type="submit" class="auth-submit signup-submit">
+                        Create Account →
+                    </button>
+
+                </form>
+
+                <p class="auth-switch">
+                    Already have an account?
+                    <a href="login.html">Login</a>
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

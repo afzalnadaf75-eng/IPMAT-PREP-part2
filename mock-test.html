@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPMAT Mini Mock Test</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f3ff;
+            color: #252044;
+            min-height: 100vh;
+        }
+
+        header {
+            background: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-size: 23px;
+            font-weight: bold;
+            color: #635bff;
+        }
+
+        .back-home {
+            text-decoration: none;
+            color: #635bff;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .test-heading {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .test-heading h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .test-heading p {
+            color: #777;
+        }
+
+        .test-info {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .info-box {
+            background: white;
+            padding: 15px;
+            border-radius: 14px;
+            flex: 1;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+        }
+
+        .progress-container {
+            height: 10px;
+            background: #e4e0ff;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 20%;
+            background: #635bff;
+            transition: 0.3s;
+        }
+
+        .question-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.06);
+        }
+
+        .category {
+            display: inline-block;
+            background: #eeeaff;
+            color: #635bff;
+            padding: 7px 13px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 18px;
+        }
+
+        .question-number {
+            color: #888;
+            margin-bottom: 12px;
+        }
+
+        .question {
+            font-size: 22px;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+
+        .options {
+            display: grid;
+            gap: 13px;
+        }
+
+        .option {
+            padding: 16px;
+            border: 2px solid #eee;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 16px;
+        }
+
+        .option:hover {
+            border-color: #635bff;
+            background: #f8f7ff;
+        }
+
+        .option.selected {
+            border-color: #635bff;
+            background: #eeeaff;
+            font-weight: bold;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 15px;
+        }
+
+        button {
+            border: none;
+            padding: 14px 25px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .next-btn, .restart-btn {
+            background: #635bff;
+            color: white;
+        }
+
+        .next-btn:hover, .restart-btn:hover {
+            background: #5048e5;
+        }
+
+        .prev-btn {
+            background: #eeeaff;
+            color: #635bff;
+        }
+
+        .result-card {
+            display: none;
+            background: white;
+            padding: 40px 25px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.06);
+        }
+
+        .result-emoji {
+            font-size: 65px;
+            margin-bottom: 15px;
+        }
+
+        .result-card h2 {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .score {
+            font-size: 45px;
+            font-weight: bold;
+            color: #635bff;
+            margin: 20px 0;
+        }
+
+        .result-message {
+            color: #777;
+            margin-bottom: 25px;
+        }
+
+        @media(max-width: 600px) {
+            .test-info {
+                flex-direction: column;
+            }
+
+            .question-card {
+                padding: 20px;
+            }
+
+            .question {
+                font-size: 19px;
+            }
+
+            .test-heading h1 {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">IPMATPrep 🎯</div>
+    <a href="index.html" class="back-home">← Back to Home</a>
+</header>
+
+<div class="container">
+
+    <div class="test-heading">
+        <h1>IPMAT Mini Mock Test 🧠</h1>
+        <p>Challenge yourself and improve your preparation!</p>
+    </div>
+
+    <div class="test-info" id="testInfo">
+        <div class="info-box">📝 5 Questions</div>
+        <div class="info-box">⏱️ <span id="timer">05:00</span></div>
+        <div class="info-box">⭐ 1 Mark Each</div>
+    </div>
+
+    <div class="progress-container" id="progressContainer">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="question-card" id="questionCard">
+
+        <div class="category" id="category">Quantitative Ability</div>
+
+        <p class="question-number" id="questionNumber">Question 1 of 5</p>
+
+        <h2 class="question" id="questionText"></h2>
+
+        <div class="options" id="options"></div>
+
+        <div class="buttons">
+            <button class="prev-btn" id="previousBtn">← Previous</button>
+            <button class="next-btn" id="nextBtn">Next →</button>
+        </div>
+
+    </div>
+
+    <div class="result-card" id="resultCard">
+        <div class="result-emoji" id="resultEmoji">🏆</div>
+        <h2 id="resultTitle">Test Completed!</h2>
+        <p>Your final score is</p>
+        <div class="score" id="finalScore">0 / 5</div>
+        <p class="result-message" id="resultMessage"></p>
+        <button class="restart-btn" onclick="restartTest()">Try Again 🔄</button>
+    </div>
+
+</div>
+
+<script>
+    const questions = [
+        {
+            category: "Quantitative Ability",
+            question: "If 25% of a number is 60, what is the number?",
+            options: ["180", "200", "240", "260"],
+            answer: 2
+        },
+        {
+            category: "Quantitative Ability",
+            question: "A shopkeeper buys an item for ₹800 and sells it for ₹920. What is the profit percentage?",
+            options: ["10%", "12%", "15%", "20%"],
+            answer: 2
+        },
+        {
+            category: "Quantitative Ability",
+            question: "The average of five consecutive integers is 18. What is the largest integer?",
+            options: ["18", "19", "20", "21"],
+            answer: 2
+        },
+        {
+            category: "Verbal Ability",
+            question: "Choose the synonym of the word 'Abundant'.",
+            options: ["Scarce", "Plentiful", "Fragile", "Ordinary"],
+            answer: 1
+        },
+        {
+            category: "Verbal Ability",
+            question: "Choose the grammatically correct sentence.",
+            options: [
+                "She do not like coffee.",
+                "She does not likes coffee.",
+                "She does not like coffee.",
+                "She not likes coffee."
+            ],
+            answer: 2
+        }
+    ];
+
+    let currentQuestion = 0;
+    let selectedAnswers = new Array(questions.length).fill(null);
+    let timeLeft = 300;
+    let timerInterval;
+
+    const questionText = document.getElementById("questionText");
+    const optionsContainer = document.getElementById("options");
+    const questionNumber = document.getElementById("questionNumber");
+    const category = document.getElementById("category");
+    const progressBar = document.getElementById("progressBar");
+    const previousBtn = document.getElementById("previousBtn");
+    const nextBtn = document.getElementById("nextBtn");
+
+    function showQuestion() {
+        const q = questions[currentQuestion];
+
+        category.textContent = q.category;
+        questionNumber.textContent =
+            `Question ${currentQuestion + 1} of ${questions.length}`;
+
+        questionText.textContent = q.question;
+        optionsContainer.innerHTML = "";
+
+        q.options.forEach((option, index) => {
+            const button = document.createElement("div");
+
+            button.className = "option";
+            button.textContent =
+                `${String.fromCharCode(65 + index)}. ${option}`;
+
+            if (selectedAnswers[currentQuestion] === index) {
+                button.classList.add("selected");
+            }
+
+            button.addEventListener("click", () => {
+                selectedAnswers[currentQuestion] = index;
+                showQuestion();
+            });
+
+            optionsContainer.appendChild(button);
+        });
+
+        progressBar.style.width =
+            `${((currentQuestion + 1) / questions.length) * 100}%`;
+
+        previousBtn.style.visibility =
+            currentQuestion === 0 ? "hidden" : "visible";
+
+        nextBtn.textContent =
+            currentQuestion === questions.length - 1
+                ? "Submit Test ✓"
+                : "Next →";
+    }
+
+    nextBtn.addEventListener("click", () => {
+        if (selectedAnswers[currentQuestion] === null) {
+            alert("Please select an answer first! 😊");
+            return;
+        }
+
+        if (currentQuestion < questions.length - 1) {
+            currentQuestion++;
+            showQuestion();
+        } else {
+            finishTest();
+        }
+    });
+
+    previousBtn.addEventListener("click", () => {
+        if (currentQuestion > 0) {
+            currentQuestion--;
+            showQuestion();
+        }
+    });
+
+    function startTimer() {
+        timerInterval = setInterval(() => {
+            timeLeft--;
+
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+
+            document.getElementById("timer").textContent =
+                `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+
+            if (timeLeft <= 0) {
+                finishTest();
+            }
+        }, 1000);
+    }
+
+    function finishTest() {
+        clearInterval(timerInterval);
+
+        let score = 0;
+
+        questions.forEach((q, index) => {
+            if (selectedAnswers[index] === q.answer) {
+                score++;
+            }
+        });
+
+        document.getElementById("questionCard").style.display = "none";
+        document.getElementById("testInfo").style.display = "none";
+        document.getElementById("progressContainer").style.display = "none";
+        document.getElementById("resultCard").style.display = "block";
+
+        document.getElementById("finalScore").textContent =
+            `${score} / ${questions.length}`;
+
+        let emoji = "💪";
+        let title = "Good Try!";
+        let message = "Keep practising. Every question makes you better!";
+
+        if (score === 5) {
+            emoji = "🏆";
+            title = "Perfect Score!";
+            message = "Amazing! You answered every question correctly!";
+        } else if (score >= 3) {
+            emoji = "🌟";
+            title = "Great Work!";
+            message = "Nice job! Keep practising to improve your score.";
+        }
+
+        document.getElementById("resultEmoji").textContent = emoji;
+        document.getElementById("resultTitle").textContent = title;
+        document.getElementById("resultMessage").textContent = message;
+    }
+
+    function restartTest() {
+        currentQuestion = 0;
+        selectedAnswers = new Array(questions.length).fill(null);
+        timeLeft = 300;
+
+        document.getElementById("questionCard").style.display = "block";
+        document.getElementById("testInfo").style.display = "flex";
+        document.getElementById("progressContainer").style.display = "block";
+        document.getElementById("resultCard").style.display = "none";
+        document.getElementById("timer").textContent = "05:00";
+
+        showQuestion();
+        startTimer();
+    }
+
+    showQuestion();
+    startTimer();
+</script>
+
+</body>
+</html>
