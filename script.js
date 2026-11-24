@@ -112,33 +112,61 @@ const signupForm = document.getElementById("signupForm");
 
 if (signupForm) {
 
-    signupForm.addEventListener("submit", function (event) {
+    signupForm.addEventListener("submit", async function (event) {
 
         event.preventDefault();
 
-        const name = document.getElementById("fullname").value.trim();
+        const fullname = document.getElementById("fullname").value.trim();
         const email = document.getElementById("signupEmail").value.trim();
-        const pass = document.getElementById("signupPassword").value;
-        const confirmPass = document.getElementById("confirmPassword").value;
+        const password = document.getElementById("signupPassword").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
 
-        if (name.length < 2) {
-            alert("Please enter your full name.");
-            return;
-        }
-
-        if (pass.length < 8) {
+        // Check password length
+        if (password.length < 8) {
             alert("Password must contain at least 8 characters.");
             return;
         }
 
-        if (pass !== confirmPass) {
+        // Check password confirmation
+        if (password !== confirmPassword) {
             alert("Passwords do not match!");
             return;
         }
 
-        alert("Your details are valid! 🎉 Account registration will be connected soon.");
+        // Prepare form data
+        const formData = new URLSearchParams();
 
-        signupForm.reset();
+        formData.append("fullname", fullname);
+        formData.append("email", email);
+        formData.append("password", password);
+        formData.append("confirmPassword", confirmPassword);
+
+        try {
+
+            // Send data to PHP using AJAX
+            const response = await fetch("register.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                alert(result.message);
+                signupForm.reset();
+            } else {
+                alert(result.message);
+            }
+
+        } catch (error) {
+
+            console.error("AJAX Error:", error);
+            alert("Something went wrong. Please try again.");
+
+        }
 
     });
 
